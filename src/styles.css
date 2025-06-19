@@ -81,6 +81,27 @@ header {
     transition: opacity 1s ease-in-out;
 }
 
+.text-center {
+    text-align: center;
+}
+
+.mx-auto {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.btn-restart {
+    color: #F5F5F5;
+    background-color: #2E3A59;
+    height: 2rem;
+    width: 5rem;
+}
+
+.btn-restart:hover {
+    background-color: #5a6e77;
+}
+
+
 .diseabled.hidden {
     visibility: hidden;
     opacity: 0;

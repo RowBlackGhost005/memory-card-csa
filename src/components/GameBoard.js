@@ -1,7 +1,8 @@
-import React , {useState , useReducer , useEffect , useMemo , useContext} from 'react';
+import React , {useState , useReducer , useEffect , useMemo , useContext , useCallback} from 'react';
 
 import {GameContext} from '../context/GameContext';
 import Card from './Card';
+import useTimer from '../hooks/useTimer';
 
 const gameactions = { 
     SELECT: "SELECT",
@@ -22,16 +23,13 @@ function GameBoard() {
         "csharp", "c" , "css" , "haskell" , "html" , "java" , "javascript" , "mysql" , "postgres" , "python"
     ];
 
+    const [gameWon , setGameWon] = useState(false);
+
     /** Manages the score of the game */
     const [score , setScore] = useState(0);
 
-    /** Manages the timer of the game */
-    const [time , setTime] = useState(0);
-
-    /** Shuffled cards to be used to create the Cards at game*/
-    const shuffledCards = useMemo(() => {
-        return shuffleArray([...cardsRegistry , ...cardsRegistry]);
-    } , []);
+    /** Manages the attempts to match pairs */
+    const [attempts , setAttempts] = useState(0);
 
     /**
      * Receives an array and shuffles its elements.
@@ -39,15 +37,19 @@ function GameBoard() {
      * @param {*} array To shuffle
      * @returns Array with same elements but shuffled.
      */
-    function shuffleArray(array) {
+    const shuffleArray = useCallback((array) => {
         const shuffled = [...array];
         for (let i = shuffled.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
         }
         return shuffled;
-    };
-    
+    }, []);
+
+    /** Shuffled cards to be used to create the Cards at game*/
+    const shuffledCards = useMemo(() => {
+        return shuffleArray([...cardsRegistry , ...cardsRegistry]);
+    } , [gameWon]);
 
     /**
      * Manages the logic of selecting cards and ensures theres a maximum of two selected at any time.
@@ -61,7 +63,7 @@ function GameBoard() {
             case "SELECT":
                 if(state.card1 === null){
                     newState = {...state , card1: action.card};
-                }else if(state.card1 !== null){
+                }else if(state.card1 !== action.card){
                     newState = {...state , card2: action.card};
                 }
                 return newState;
@@ -82,12 +84,18 @@ function GameBoard() {
     /** Checks if there are two cards selected to start the validating matches*/
     useEffect(() => {
         if(cardsSelected.card1 !== null && cardsSelected.card2 !== null){
+            setAttempts((prev) => prev + 1);
             setGameActive(false);
             setTimeout(() => {
                 validateSelectedCards(cardsSelected.card1 , cardsSelected.card2);
                 dispatchCardSelected({type : "RESTART"});
-                setGameActive(true);
-            } , 1000);
+
+                setTimeout(() => {
+                    setGameActive(true);
+                } , 200)
+
+                
+            } , 800);
         }
     } , [cardsSelected]);
 
@@ -95,47 +103,78 @@ function GameBoard() {
     const {state: matchedCards, dispatch: setMatchedCard} = useContext(GameContext);
 
     /** Routes the selection of a card to the reducer*/
-    const handleSelected = (index) => {
-        dispatchCardSelected({type: "SELECT" , card: index});
-    }
+    const handleSelected = useCallback((index) => {
+        if(cardsSelected.card1 === null){
+            dispatchCardSelected({type: "SELECT" , card: index});
+        }
+        
+    } , []);
 
     /** Determines whether the two currently selected cards are matched based on its value fetched using its ID */
     const validateSelectedCards = (card1 , card2) => {
         if(shuffledCards[card1] === shuffledCards[card2]){
-            setMatchedCard({type: "ADD" , card: shuffledCards[card1]});
+            setMatchedCard({type: "ADD" , card: shuffledCards[card2]});
             setScore((prev) => prev + 1);
         }
         
     };
-
+    
+    /** Custom hook that manages time */
+    const [reset , setReset] = useState(false);
+    const [seconds , minutes] = useTimer(reset);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setTime(prev => prev + 1);
-        }, 1000);
+        if(score === 10){
+            setGameWon(true);
+            setTimeStamp({minutes: minutes , seconds: seconds});
+        }
+    } , [score])
 
-        return () => clearInterval(interval);
-    }, []);
-
+    /** Stores a time stamp when finished the game */
+    const [timeStamp, setTimeStamp] = useState(null);
     
+    /** Reset all states to initial value */
+    const restartGame = useCallback(()=> {
+        setGameWon(false);
+        setTimeStamp(null);
+        setAttempts(0);
+        setMatchedCard({type: "RESET"});
+        setScore(0);
+        setReset(prev => !prev);
+    } , []);
 
-
-    //ToDo: Add GameContext for Timer and Game Score
-
-    return(
-        <div>
-            <div className="scoreboard">
-                <h2>{`Time: ${time}s`}</h2>
-                <h2>{`Pairs: ${score}`}/{shuffledCards.length / 2}</h2>
-            </div>
-            <div id='gameBoard'>
-                {Array.from({length: cardsToPlay}).map((_ , index) => (
-                    <Card key={shuffledCards[index] + index} id={index} value={shuffledCards[index]} handleSelected={handleSelected} selectedCards={cardsSelected} isActive={gameActive}/>
-                ))}
-            </div>
-        </div>
-
+    if(gameWon){
+        return (
+            <React.Fragment>
+                <div className='text-center'>
+                    <h2>You finished!</h2>
+                    <h2>{`Time: ${timeStamp.minutes}m ${timeStamp.seconds}s`}</h2>
+                    <h2>{`Attempts: ${attempts}`}</h2>
+                    <button className='btn-restart' onClick={restartGame}>Restart</button>
+                </div>
+            </React.Fragment>
+        
+        
     );
+    }else{
+        return(
+            <div>
+                <div className="scoreboard">
+                    <h2>{`Time: ${minutes}m ${seconds}s`}</h2>
+                    <h2>{`Pairs: ${score}`}/{shuffledCards.length / 2}</h2>
+                    <h2>{`Attempts: ${attempts}`}</h2>
+                </div>
+                <div id='gameBoard'>
+                    {Array.from({length: cardsToPlay}).map((_ , index) => (
+                        <Card key={shuffledCards[index] + index} id={index} value={shuffledCards[index]} handleSelected={handleSelected} selectedCards={cardsSelected} isActive={gameActive}/>
+                    ))}
+                </div>
+            </div>
+
+        );
+    }
+
+
 };
 
 export default GameBoard;

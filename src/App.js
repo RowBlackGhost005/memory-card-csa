@@ -5,6 +5,7 @@ import './styles.css';
 
 import GameBoard from './components/GameBoard';
 import {GameProvider} from './context/GameProvider';
+import GameErrorBoundary from './components/GameErrorBoundary';
 
 function App() {
   return (
@@ -13,9 +14,13 @@ function App() {
         <h1>Programming Memory Card</h1>
       </header>
       <main>
-        <GameProvider>
-          <GameBoard/>
-        </GameProvider>
+        
+          <GameProvider>
+            <GameErrorBoundary>
+              <GameBoard/>
+            </GameErrorBoundary>
+          </GameProvider>
+       
       </main>
     </React.Fragment>
   );

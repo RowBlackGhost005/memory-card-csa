@@ -5,7 +5,7 @@ import misteryImg from '../assets/mistery.png';
 import {imageResolve} from '../util/imageResolver';
 
 const useMatchedCard = (value) => {
-    const {state: matchedCards, dispatch: setMatchedCard} = useContext(GameContext);
+    const {state: matchedCards} = useContext(GameContext);
 
     return matchedCards.includes(value);
 }
