@@ -158,7 +158,7 @@ function GameBoard() {
     );
     }else{
         return(
-            <div>
+            <div className='flex'>
                 <div className="scoreboard">
                     <h2>{`Time: ${minutes}m ${seconds}s`}</h2>
                     <h2>{`Pairs: ${score}`}/{shuffledCards.length / 2}</h2>

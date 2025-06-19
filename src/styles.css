@@ -11,6 +11,7 @@ main {
     flex: 1;
     overflow: auto;
     padding: 1rem;
+    max-width: 2144px;
     margin-right: auto;
     margin-left: auto;
 }
@@ -25,6 +26,7 @@ header {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    justify-content: center;
 }
 
 #gameBoard {
@@ -33,7 +35,6 @@ header {
     gap: 2rem;
     height: 100%;
     width: 100%;
-    max-width: 1920px;
 }
 
 .scoreboard{
@@ -46,8 +47,8 @@ header {
 
 .card {
     background-color: #2E3A59;
-    max-height: 300px;
-    max-width: 300px;
+    max-height: 255px;
+    max-width: 255px;
     border-radius: 12px;
     transition: scale 0.3s ease;
     transition: background-color 0.3s ease;
@@ -108,27 +109,38 @@ header {
     transition: opacity 1s ease-in-out, visibility 0s linear 1s;
 }
 
-@media(min-width: 600px){
-    #gameBoard{
-        grid-template-columns: repeat(2 , 1fr);
-    }
+.flex{
+    display: flex;
+    flex-direction: column;
 }
 
-@media(min-width: 768px){
+@media(min-width: 600px){
     #gameBoard{
         grid-template-columns: repeat(3 , 1fr);
     }
 }
 
-@media(min-width: 900px){
+@media(min-width: 768px){
     #gameBoard{
         grid-template-columns: repeat(4 , 1fr);
     }
 }
 
+@media(min-width: 900px){
+    #gameBoard{
+        grid-template-columns: repeat(6 , 1fr);
+    }
+}
+
 @media(min-width: 1200px){
     #gameBoard{
-        grid-template-columns: repeat(5 , 1fr);
+        grid-template-columns: repeat(8 , 1fr);
+    }
+}
+
+@media(min-width: 1600px){
+    #gameBoard{
+        grid-template-columns: repeat(10 , 1fr);
     }
 }
 
