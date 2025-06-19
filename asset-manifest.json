@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/your-repo-name/static/css/main.84b32804.css",
-    "main.js": "/your-repo-name/static/js/main.d8b5522c.js",
-    "static/js/453.fb407cbc.chunk.js": "/your-repo-name/static/js/453.fb407cbc.chunk.js",
-    "static/media/postgres.png": "/your-repo-name/static/media/postgres.a7fa39912c91e079e90b.png",
-    "static/media/python.png": "/your-repo-name/static/media/python.6a5cbc319ab3ddf8ef92.png",
-    "static/media/java.png": "/your-repo-name/static/media/java.ddf8676bd569fe01ab44.png",
-    "static/media/c-sharp.png": "/your-repo-name/static/media/c-sharp.4a32f53d425c7ad4cb05.png",
-    "static/media/c.png": "/your-repo-name/static/media/c.24a8f93854ab092f17a7.png",
-    "static/media/mysql.png": "/your-repo-name/static/media/mysql.7d8d571e5629923eaf74.png",
-    "static/media/html.png": "/your-repo-name/static/media/html.cfb2ba4a6b1c3de295bc.png",
-    "static/media/mistery.png": "/your-repo-name/static/media/mistery.1845723e2042aab12dbd.png",
-    "static/media/css.png": "/your-repo-name/static/media/css.4a6549b8c2b4cda8bb88.png",
-    "static/media/haskell.png": "/your-repo-name/static/media/haskell.0a3c1e66b4f065d744f5.png",
-    "static/media/javascript.png": "/your-repo-name/static/media/javascript.3dfb665e058d08c99f28.png",
-    "index.html": "/your-repo-name/index.html",
-    "main.84b32804.css.map": "/your-repo-name/static/css/main.84b32804.css.map",
-    "main.d8b5522c.js.map": "/your-repo-name/static/js/main.d8b5522c.js.map",
-    "453.fb407cbc.chunk.js.map": "/your-repo-name/static/js/453.fb407cbc.chunk.js.map"
+    "main.css": "/memory-card-csa/static/css/main.84b32804.css",
+    "main.js": "/memory-card-csa/static/js/main.936680f2.js",
+    "static/js/453.fb407cbc.chunk.js": "/memory-card-csa/static/js/453.fb407cbc.chunk.js",
+    "static/media/postgres.png": "/memory-card-csa/static/media/postgres.a7fa39912c91e079e90b.png",
+    "static/media/python.png": "/memory-card-csa/static/media/python.6a5cbc319ab3ddf8ef92.png",
+    "static/media/java.png": "/memory-card-csa/static/media/java.ddf8676bd569fe01ab44.png",
+    "static/media/c-sharp.png": "/memory-card-csa/static/media/c-sharp.4a32f53d425c7ad4cb05.png",
+    "static/media/c.png": "/memory-card-csa/static/media/c.24a8f93854ab092f17a7.png",
+    "static/media/mysql.png": "/memory-card-csa/static/media/mysql.7d8d571e5629923eaf74.png",
+    "static/media/html.png": "/memory-card-csa/static/media/html.cfb2ba4a6b1c3de295bc.png",
+    "static/media/mistery.png": "/memory-card-csa/static/media/mistery.1845723e2042aab12dbd.png",
+    "static/media/css.png": "/memory-card-csa/static/media/css.4a6549b8c2b4cda8bb88.png",
+    "static/media/haskell.png": "/memory-card-csa/static/media/haskell.0a3c1e66b4f065d744f5.png",
+    "static/media/javascript.png": "/memory-card-csa/static/media/javascript.3dfb665e058d08c99f28.png",
+    "index.html": "/memory-card-csa/index.html",
+    "main.84b32804.css.map": "/memory-card-csa/static/css/main.84b32804.css.map",
+    "main.936680f2.js.map": "/memory-card-csa/static/js/main.936680f2.js.map",
+    "453.fb407cbc.chunk.js.map": "/memory-card-csa/static/js/453.fb407cbc.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.84b32804.css",
-    "static/js/main.d8b5522c.js"
+    "static/js/main.936680f2.js"
   ]
 }
